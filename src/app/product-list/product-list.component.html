@@ -1,28 +1,50 @@
 <h1>Products</h1>
-<h3>{{date | date:'dd.MM.yyyy HH:mm'}}</h3>
-<button type="button" *ngIf="!showImage" (click)="toggleImage()">Show Image</button>
-<button type="button" *ngIf="showImage" (click)="toggleImage()">Hide Image</button>
+<h3>{{ date | date : "dd.MM.yyyy HH:mm" }}</h3>
+<button type="button" (click)="toggleImage()" class="btn btn-primary">
+  {{ showImage ? "Hide" : "Show" }}
+</button>
+<button type="button" (click)="resizeImageBigger()" class="btn btn-success">
+  Resize image(bigger)
+</button>
+<button type="button" (click)="resizeImageSmaller()" class="btn btn-danger">
+  Resize image(smaller)
+</button>
+<br />
+<br />
+
+<div class="row">
+  <label class="col-2">Filter</label>
+  <div class="col-3"><input type="text" class="form-control border" /></div>
+</div>
+
+<br />
 <div>
-    <table>
-        <thead>
-            <th>Slika</th>
-            <th>Product name</th>
-            <th>Product code</th>
-            <th>Category</th>
-            <th>Price</th>
-            <th>Rating</th>
-        </thead>
-        <tbody>
-            <tr *ngFor="let product of products">
-                <td>
-                    <img *ngIf="showImage" [src]="product.imageUrl" [title]="product.productName" width="50" />
-                </td>
-                <td>{{product.productName | uppercase}}</td>
-                <td>{{product.productCode | lowercase}}</td>
-                <td>{{product.category}}</td>
-                <td>{{product.price | currency:'USD':'symbol':'1.2-2'}}</td>
-                <td>{{product.rating | number: '1.2-2'}}</td>
-            </tr>
-        </tbody>
-    </table>
+  <table class="table table-striped">
+    <thead>
+      <th>Slika</th>
+      <th>Product name</th>
+      <th>Product code</th>
+      <th>Category</th>
+      <th>Price</th>
+      <th>Rating</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>
+          <img
+            *ngIf="showImage"
+            [src]="product.imageUrl"
+            [title]="product.productName"
+            [style.width.px]="imageWidth"
+            [style.border-radius.%]="imageWidth"
+          />
+        </td>
+        <td>{{ product.productName | uppercase }}</td>
+        <td>{{ product.productCode | lowercase }}</td>
+        <td>{{ product.category }}</td>
+        <td>{{ product.price | currency : "USD" : "symbol" : "1.2-2" }}</td>
+        <td>{{ product.rating | number : "1.2-2" }}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
